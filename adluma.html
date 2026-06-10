@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adluma — Illuminate Your Brand</title>
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Satoshi:wght@300;400;500;700&family=Cabinet+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --gold:#E8C547;
+  --gold2:#F0D060;
+  --gold-dim:#B89A20;
+  --gold-dark:#8A7010;
+  --bg:#060608;
+  --bg2:#0C0C10;
+  --bg3:#121218;
+  --bg4:#181820;
+  --text:#F2EFE8;
+  --muted:#666;
+  --muted2:#999;
+  --border:rgba(255,255,255,.07);
+  --border2:rgba(232,197,71,.15);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;overflow-x:hidden;cursor:none}
+
+/* CURSOR */
+.cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(232,197,71,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .12s ease}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 3.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(6,6,8,.8);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.logo-wrap{display:flex;align-items:center;gap:.6rem}
+.logo-icon{width:34px;height:34px;position:relative;flex-shrink:0}
+.logo-icon svg{width:100%;height:100%}
+.logo-text{font-family:'Space Grotesk',sans-serif;font-size:1.35rem;font-weight:700;letter-spacing:.06em;color:var(--text)}
+.logo-text em{color:var(--gold);font-style:normal}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{color:var(--muted2);text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.04em;transition:color .25s}
+.nav-links a:hover{color:var(--gold)}
+.nav-btns{display:flex;gap:.8rem;align-items:center}
+.btn-ghost{padding:.5rem 1.2rem;border:1px solid var(--border);color:var(--muted2);background:transparent;border-radius:6px;cursor:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:500;transition:all .25s;text-decoration:none}
+.btn-ghost:hover{border-color:var(--border2);color:var(--gold)}
+.btn-gold{padding:.5rem 1.3rem;background:var(--gold);color:#0a0a0a;border:none;border-radius:6px;cursor:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;transition:all .25s;text-decoration:none;letter-spacing:.02em}
+.btn-gold:hover{background:var(--gold2);box-shadow:0 0 24px rgba(232,197,71,.3)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;padding:9rem 4rem 5rem;text-align:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;overflow:hidden}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(232,197,71,.07) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);animation:breathe 5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}50%{transform:translate(-50%,-50%) scale(1.15);opacity:1}}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(232,197,71,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(232,197,71,.03) 1px,transparent 1px);background-size:80px 80px}
+
+/* ANIMATED BARS (growth) */
+.growth-bars{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:flex-end;gap:3px;padding:0 5%;height:220px;opacity:.18;pointer-events:none}
+.g-bar{flex:1;background:linear-gradient(to top,var(--gold),transparent);border-radius:2px 2px 0 0;animation:barRise 2.5s ease-out forwards}
+@keyframes barRise{from{height:0}to{height:var(--h)}}
+
+.hero-pill{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--border2);background:rgba(232,197,71,.05);color:var(--gold);font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.35rem 1rem;border-radius:100px;margin-bottom:2.2rem;animation:fadeUp .7s ease both}
+.hero-pill::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.hero-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(3.5rem,9vw,9rem);font-weight:700;line-height:.95;letter-spacing:-.02em;margin-bottom:1.8rem;animation:fadeUp .7s .1s ease both}
+.hero-title .line2{color:var(--gold);display:block;position:relative}
+.hero-title .line2::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);animation:lineGrow 1.5s 1s ease both;transform-origin:center;transform:scaleX(0)}
+@keyframes lineGrow{to{transform:scaleX(1)}}
+
+.hero-sub{font-size:1.05rem;color:var(--muted2);max-width:480px;line-height:1.75;margin:0 auto 2.8rem;font-weight:400;animation:fadeUp .7s .2s ease both}
+.hero-ctas{display:flex;gap:.9rem;justify-content:center;animation:fadeUp .7s .3s ease both}
+.btn-xl{padding:.85rem 2rem;font-size:.95rem;border-radius:8px;cursor:none;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;text-decoration:none;transition:all .3s;letter-spacing:.01em}
+.btn-xl.gold{background:var(--gold);color:#000;border:none}
+.btn-xl.gold:hover{background:var(--gold2);box-shadow:0 8px 32px rgba(232,197,71,.3);transform:translateY(-1px)}
+.btn-xl.outline{background:transparent;color:var(--text);border:1px solid var(--border)}
+.btn-xl.outline:hover{border-color:var(--border2);color:var(--gold)}
+
+/* LIVE METRICS (hero bottom) */
+.hero-metrics{display:flex;gap:0;margin-top:5rem;border:1px solid var(--border);border-radius:12px;overflow:hidden;animation:fadeUp .7s .4s ease both;background:rgba(255,255,255,.02)}
+.metric{padding:1.5rem 2.5rem;text-align:center;border-right:1px solid var(--border);position:relative;overflow:hidden}
+.metric:last-child{border-right:none}
+.metric::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(232,197,71,.06),transparent);opacity:0;transition:opacity .3s}
+.metric:hover::before{opacity:1}
+.metric-num{font-family:'Space Grotesk',sans-serif;font-size:2.2rem;font-weight:700;color:var(--gold);line-height:1;display:block}
+.metric-label{font-size:.72rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:.35rem;display:block}
+.metric-trend{font-size:.68rem;color:#4ade80;margin-top:.2rem;display:flex;align-items:center;justify-content:center;gap:.2rem}
+.metric-trend::before{content:'↑';font-size:.75rem}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* TICKER */
+.ticker-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.75rem 0;background:var(--bg2)}
+.ticker{display:flex;animation:ticker 25s linear infinite;white-space:nowrap}
+.ticker-item{font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:0 2.5rem}
+.ticker-sep{color:var(--gold);opacity:.5}
+
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* METRICS ANIMATION SECTION */
+#metrics-anim{padding:5rem 4rem;background:var(--bg2);overflow:hidden;position:relative}
+.anim-title{text-align:center;font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:700;margin-bottom:.8rem;letter-spacing:-.02em}
+.anim-sub{text-align:center;font-size:.9rem;color:var(--muted2);margin-bottom:4rem}
+.charts-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.chart-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.8rem;position:relative;overflow:hidden}
+.chart-card-label{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.chart-card-val{font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;color:var(--gold);margin-bottom:.2rem}
+.chart-card-change{font-size:.78rem;color:#4ade80;font-weight:600;margin-bottom:1.2rem}
+
+/* BAR CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:4px;height:60px}
+.bc-bar{flex:1;background:rgba(232,197,71,.15);border-radius:2px 2px 0 0;position:relative;overflow:hidden;transition:background .3s}
+.bc-bar::after{content:'';position:absolute;inset:0;background:var(--gold);transform-origin:bottom;transform:scaleY(0);animation:barFill 1.2s ease forwards}
+.bc-bar:nth-child(1)::after{height:30%;animation-delay:.1s}
+.bc-bar:nth-child(2)::after{height:45%;animation-delay:.15s}
+.bc-bar:nth-child(3)::after{height:38%;animation-delay:.2s}
+.bc-bar:nth-child(4)::after{height:55%;animation-delay:.25s}
+.bc-bar:nth-child(5)::after{height:50%;animation-delay:.3s}
+.bc-bar:nth-child(6)::after{height:70%;animation-delay:.35s}
+.bc-bar:nth-child(7)::after{height:65%;animation-delay:.4s}
+.bc-bar:nth-child(8)::after{height:82%;animation-delay:.45s}
+.bc-bar:nth-child(9)::after{height:78%;animation-delay:.5s}
+.bc-bar:nth-child(10)::after{height:92%;animation-delay:.55s}
+.bc-bar:nth-child(11)::after{height:88%;animation-delay:.6s}
+.bc-bar:nth-child(12)::after{height:100%;animation-delay:.65s}
+@keyframes barFill{to{transform:scaleY(1)}}
+
+/* LINE CHART SVG */
+.line-chart{width:100%;height:60px}
+.lc-line{stroke-dasharray:300;stroke-dashoffset:300;animation:drawLine 1.5s ease forwards .3s}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+
+/* ENGAGEMENT RINGS */
+.engage-rings{display:flex;align-items:center;justify-content:center;gap:1.5rem;height:60px}
+.e-ring{position:relative;width:48px;height:48px}
+.e-ring svg{transform:rotate(-90deg);width:100%;height:100%}
+.e-ring circle.track{fill:none;stroke:rgba(232,197,71,.1);stroke-width:4}
+.e-ring circle.fill{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round;stroke-dasharray:132;stroke-dashoffset:132;animation:ringFill 1.4s ease forwards}
+.e-ring:nth-child(1) circle.fill{animation-delay:.2s;stroke-dashoffset:26}
+.e-ring:nth-child(2) circle.fill{animation-delay:.4s;stroke-dashoffset:46;stroke:var(--gold2)}
+.e-ring:nth-child(3) circle.fill{animation-delay:.6s;stroke-dashoffset:66;stroke:rgba(232,197,71,.6)}
+@keyframes ringFill{to{stroke-dashoffset:var(--target,0)}}
+.e-ring-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.5rem;font-weight:700;color:var(--gold)}
+
+/* SECTION COMMON */
+section{padding:6rem 4rem;position:relative}
+.s-tag{font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;display:flex;align-items:center;gap:.6rem}
+.s-tag::before{content:'';width:20px;height:1px;background:var(--gold)}
+.s-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4.5vw,4rem);font-weight:700;line-height:1.05;letter-spacing:-.02em;margin-bottom:1.2rem}
+.s-sub{font-size:.95rem;color:var(--muted2);max-width:480px;line-height:1.75}
+
+/* SERVICES */
+#services{background:var(--bg)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-top:4rem}
+.svc-card{background:var(--bg);padding:2.5rem;position:relative;overflow:hidden;transition:background .3s;cursor:none}
+.svc-card:hover{background:var(--bg2)}
+.svc-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-num{font-family:'Space Grotesk',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.15em;color:rgba(232,197,71,.3);margin-bottom:1.5rem}
+.svc-icon-wrap{width:44px;height:44px;border:1px solid var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:1.3rem;font-size:1.2rem;background:rgba(232,197,71,.04);transition:background .3s}
+.svc-card:hover .svc-icon-wrap{background:rgba(232,197,71,.08)}
+.svc-card h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;margin-bottom:.6rem;letter-spacing:-.01em}
+.svc-card p{font-size:.84rem;color:var(--muted2);line-height:1.65}
+
+/* BILLBOARD */
+#billboards{background:var(--bg2)}
+.bb-layout{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;margin-top:4rem}
+.bb-map{background:var(--bg3);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.bb-map-visual{height:260px;position:relative;background:var(--bg4)}
+.map-dots{position:absolute;inset:0;background-image:radial-gradient(rgba(232,197,71,.08) 1px,transparent 1px);background-size:24px 24px}
+.map-city{position:absolute;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:none}
+.map-city-dot{width:10px;height:10px;background:var(--gold);border-radius:50%;box-shadow:0 0 12px rgba(232,197,71,.6);animation:cityPulse 2s ease-in-out infinite}
+.map-city-dot::before{content:'';position:absolute;width:22px;height:22px;border:1px solid rgba(232,197,71,.3);border-radius:50%;top:-6px;left:-6px;animation:ripple 2s ease-out infinite}
+@keyframes cityPulse{0%,100%{box-shadow:0 0 8px rgba(232,197,71,.5)}50%{box-shadow:0 0 20px rgba(232,197,71,.9)}}
+@keyframes ripple{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.5);opacity:0}}
+.map-city-name{font-size:.6rem;font-weight:600;letter-spacing:.08em;color:var(--muted2);white-space:nowrap}
+.bb-map-info{padding:1.5rem}
+.bb-map-info h3{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;margin-bottom:.4rem}
+.bb-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.8rem}
+.bb-tag{font-size:.68rem;font-weight:600;letter-spacing:.06em;background:rgba(232,197,71,.07);border:1px solid var(--border2);color:var(--gold);padding:.25rem .6rem;border-radius:4px}
+.bb-list{display:flex;flex-direction:column;gap:.7rem}
+.bb-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem 1.3rem;display:flex;justify-content:space-between;align-items:center;transition:border-color .25s;cursor:none}
+.bb-item:hover{border-color:var(--border2)}
+.bb-item h4{font-size:.88rem;font-weight:600;margin-bottom:.2rem}
+.bb-item p{font-size:.72rem;color:var(--muted2)}
+.bb-price{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;color:var(--gold);text-align:right}
+.bb-price span{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:.65rem;color:var(--muted);font-weight:400}
+.bb-avail{font-size:.65rem;font-weight:600;padding:.2rem .5rem;border-radius:4px;margin-top:.3rem;display:inline-block}
+.avail-yes{background:rgba(74,222,128,.08);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+.avail-soon{background:rgba(232,197,71,.08);color:var(--gold);border:1px solid var(--border2)}
+
+/* FREELANCERS */
+#freelancers{background:var(--bg)}
+.f-tabs{display:flex;gap:.4rem;margin-top:3rem;flex-wrap:wrap}
+.f-tab{padding:.5rem 1.2rem;font-size:.78rem;font-weight:600;letter-spacing:.04em;color:var(--muted2);cursor:none;transition:all .25s;border:1px solid var(--border);border-radius:100px;background:transparent;font-family:'Plus Jakarta Sans',sans-serif}
+.f-tab.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.f-tab:hover:not(.active){border-color:var(--border2);color:var(--gold)}
+.f-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.5rem}
+.f-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1.6rem;transition:border-color .25s;cursor:none}
+.f-card:hover{border-color:var(--border2)}
+.f-top{display:flex;align-items:center;gap:.9rem;margin-bottom:1.1rem}
+.f-av{width:42px;height:42px;border-radius:50%;background:rgba(232,197,71,.1);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;color:var(--gold);flex-shrink:0}
+.f-name{font-size:.9rem;font-weight:600;margin-bottom:.15rem}
+.f-role{font-size:.72rem;color:var(--muted2)}
+.f-stars{font-size:.72rem;color:var(--gold);margin-top:.15rem}
+.f-skills{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.1rem}
+.sk{font-size:.62rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted2);padding:.2rem .5rem;border-radius:4px}
+.f-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--border);padding-top:.9rem}
+.f-rate{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text)}
+.f-rate em{font-family:'Plus Jakarta Sans',sans-serif;font-size:.7rem;color:var(--muted);font-style:normal;font-weight:400}
+.btn-xs{padding:.35rem .9rem;font-size:.72rem;font-weight:600;border:1px solid var(--border2);color:var(--gold);background:transparent;border-radius:6px;cursor:none;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.03em;transition:all .25s}
+.btn-xs:hover{background:var(--gold);color:#000}
+
+/* HOW IT WORKS */
+#how{background:var(--bg2)}
+.steps{margin-top:4rem;display:flex;flex-direction:column;gap:0;position:relative}
+.steps::before{content:'';position:absolute;left:2.2rem;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent 0%,var(--border2) 10%,var(--border2) 90%,transparent 100%)}
+.step{display:flex;gap:2.5rem;padding:2rem 0 2rem 5.5rem;border-bottom:1px solid var(--border);position:relative}
+.step:last-child{border-bottom:none}
+.step-n{position:absolute;left:0;top:2rem;width:44px;height:44px;border:1px solid var(--border2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;color:var(--gold);background:var(--bg2);z-index:1}
+.step-role{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;opacity:.7}
+.step h3{font-family:'Space Grotesk',sans-serif;font-size:1.05rem;font-weight:600;margin-bottom:.5rem;letter-spacing:-.01em}
+.step p{font-size:.85rem;color:var(--muted2);line-height:1.7}
+
+/* PRICING */
+#pricing{background:var(--bg)}
+.p-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:4rem}
+.p-card{border:1px solid var(--border);border-radius:14px;padding:2.2rem;transition:border-color .25s;background:var(--bg2)}
+.p-card.featured{border-color:var(--border2);background:rgba(232,197,71,.03);position:relative}
+.p-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#000;font-size:.65rem;font-weight:800;letter-spacing:.12em;padding:.25rem .9rem;border-radius:100px;white-space:nowrap}
+.p-plan{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+.p-amt{font-family:'Space Grotesk',sans-serif;font-size:3.2rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:.2rem}
+.p-amt em{font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;color:var(--muted);font-style:normal;font-weight:400}
+.p-desc{font-size:.82rem;color:var(--muted2);margin-bottom:1.8rem;line-height:1.6}
+.p-list{list-style:none;margin-bottom:2rem}
+.p-list li{font-size:.82rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:.6rem;color:var(--muted2)}
+.p-list li.on{color:var(--text)}
+.p-list li.on::before{content:'';width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0}
+.p-list li:not(.on)::before{content:'';width:6px;height:6px;background:var(--border);border-radius:50%;flex-shrink:0}
+.p-cta{display:block;text-align:center;padding:.75rem;border-radius:8px;font-size:.85rem;font-weight:600;text-decoration:none;cursor:none;transition:all .25s;font-family:'Plus Jakarta Sans',sans-serif}
+.p-cta.gold{background:var(--gold);color:#000}
+.p-cta.gold:hover{background:var(--gold2);box-shadow:0 8px 24px rgba(232,197,71,.25)}
+.p-cta.plain{border:1px solid var(--border);color:var(--muted2)}
+.p-cta.plain:hover{border-color:var(--border2);color:var(--gold)}
+.commission-strip{margin-top:3rem;padding:1.5rem 2rem;border:1px solid var(--border2);border-radius:10px;background:rgba(232,197,71,.03);text-align:center;font-size:.85rem;color:var(--muted2)}
+.commission-strip strong{color:var(--gold)}
+
+/* TESTIMONIALS */
+#testi{background:var(--bg2)}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:4rem}
+.t-card{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:1.8rem;transition:border-color .25s}
+.t-card:hover{border-color:var(--border2)}
+.t-stars{color:var(--gold);font-size:.85rem;margin-bottom:1rem;letter-spacing:.08em}
+.t-text{font-size:.86rem;color:var(--muted2);line-height:1.7;margin-bottom:1.4rem}
+.t-author{display:flex;align-items:center;gap:.7rem}
+.t-av{width:34px;height:34px;border-radius:50%;background:rgba(232,197,71,.1);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--gold)}
+.t-name{font-size:.84rem;font-weight:600}
+.t-role2{font-size:.7rem;color:var(--muted2)}
+
+/* ABOUT */
+#about{background:var(--bg)}
+.a-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;margin-top:4rem}
+.a-text p{font-size:.9rem;color:var(--muted2);line-height:1.8;margin-bottom:1.3rem}
+.a-vals{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:2rem}
+.a-val{padding:1.1rem;border:1px solid var(--border);border-radius:10px;background:var(--bg2)}
+.a-val h4{font-size:.8rem;font-weight:700;color:var(--gold);margin-bottom:.3rem;letter-spacing:.02em}
+.a-val p{font-size:.76rem;color:var(--muted2);line-height:1.5}
+.a-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.a-stat{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:2rem;text-align:center}
+.a-stat-num{font-family:'Space Grotesk',sans-serif;font-size:3rem;font-weight:700;color:var(--gold);display:block;line-height:1}
+.a-stat p{font-size:.76rem;color:var(--muted2);margin-top:.4rem}
+.a-stat-big{grid-column:1/-1;padding:1.5rem}
+.a-stat-big .a-stat-num{font-size:4rem}
+
+/* CTA */
+#cta{background:var(--bg2);text-align:center;padding:8rem 4rem;position:relative;overflow:hidden}
+.cta-glow{position:absolute;width:600px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(232,197,71,.07) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%)}
+.cta-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,7vw,7rem);font-weight:700;line-height:.95;letter-spacing:-.03em;margin-bottom:2rem;position:relative;z-index:1}
+.cta-title span{color:var(--gold)}
+.cta-btns{display:flex;gap:.9rem;justify-content:center;position:relative;z-index:1}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:4rem;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:4rem}
+.f-brand-logo{display:flex;align-items:center;gap:.6rem;margin-bottom:1rem}
+.f-brand-desc{font-size:.82rem;color:var(--muted2);line-height:1.7;max-width:240px}
+.f-social{display:flex;gap:.6rem;margin-top:1.4rem}
+.f-soc{width:32px;height:32px;border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--muted2);text-decoration:none;font-size:.68rem;font-weight:800;transition:all .25s}
+.f-soc:hover{border-color:var(--border2);color:var(--gold)}
+.f-col h4{font-size:.68rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--text);margin-bottom:1.1rem}
+.f-col ul{list-style:none}
+.f-col ul li{margin-bottom:.5rem}
+.f-col ul li a{font-size:.8rem;color:var(--muted2);text-decoration:none;transition:color .25s}
+.f-col ul li a:hover{color:var(--gold)}
+.f-bottom{background:var(--bg);border-top:1px solid var(--border);padding:1.2rem 4rem;display:flex;justify-content:space-between;align-items:center}
+.f-bottom p{font-size:.74rem;color:var(--muted)}
+.f-bottom span{color:var(--gold)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(16px)}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:2.5rem;width:90%;max-width:460px;position:relative}
+.modal-x{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:none;line-height:1;transition:color .25s}
+.modal-x:hover{color:var(--gold)}
+.modal-logo{font-family:'Space Grotesk',sans-serif;font-size:1.4rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.modal-logo em{color:var(--gold);font-style:normal}
+.modal-desc{font-size:.8rem;color:var(--muted2);margin-bottom:1.5rem}
+.m-tabs{display:flex;gap:.4rem;margin-bottom:1.5rem}
+.m-tab{flex:1;padding:.55rem;font-size:.78rem;font-weight:600;color:var(--muted2);cursor:none;border:1px solid var(--border);border-radius:7px;background:transparent;transition:all .25s;font-family:'Plus Jakarta Sans',sans-serif}
+.m-tab.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1.3rem}
+.r-btn{padding:.75rem;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted2);cursor:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:.76rem;font-weight:500;transition:all .25s;text-align:center}
+.r-btn.sel,.r-btn:hover{border-color:var(--border2);color:var(--gold);background:rgba(232,197,71,.05)}
+.f-grp{margin-bottom:.9rem}
+.f-grp label{display:block;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.f-grp input{width:100%;background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:.65rem 1rem;font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;outline:none;transition:border-color .25s;border-radius:7px}
+.f-grp input:focus{border-color:var(--border2)}
+.m-submit{width:100%;padding:.8rem;background:var(--gold);color:#000;font-size:.88rem;font-weight:700;border:none;border-radius:8px;cursor:none;font-family:'Plus Jakarta Sans',sans-serif;margin-top:.3rem;transition:all .25s}
+.m-submit:hover{background:var(--gold2)}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* MOBILE */
+@media(max-width:768px){
+  nav{padding:1rem 1.2rem}
+  .nav-links,.nav-btns .btn-ghost{display:none}
+  section,#metrics-anim,footer{padding:4rem 1.2rem}
+  .hero-title{font-size:clamp(3rem,12vw,5rem)}
+  .hero-metrics{flex-direction:column;gap:0}
+  .metric{border-right:none;border-bottom:1px solid var(--border)}
+  .charts-row,.services-grid,.bb-layout,.f-grid,.p-grid,.t-grid,.a-grid,.a-stat-grid{grid-template-columns:1fr}
+  footer{grid-template-columns:1fr 1fr;gap:2rem}
+  .f-bottom{flex-direction:column;gap:.5rem;text-align:center}
+  .growth-bars{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo-wrap">
+    <div class="logo-icon">
+      <svg viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1" y="1" width="32" height="32" rx="8" stroke="#E8C547" stroke-width="1.2" fill="none"/>
+        <path d="M17 7 L10 24 H13.5 L17 15 L20.5 24 H24 Z" fill="#E8C547"/>
+        <path d="M13 20 H21" stroke="#060608" stroke-width="2"/>
+        <circle cx="17" cy="7" r="2" fill="#E8C547" opacity=".5"/>
+      </svg>
+    </div>
+    <div class="logo-text">AD<em>LUMA</em></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#billboards">Billboards</a></li>
+    <li><a href="#freelancers">Hire Talent</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-btns">
+    <a href="#" class="btn-ghost" onclick="openM('login');return false">Log In</a>
+    <a href="#" class="btn-gold" onclick="openM('signup');return false">Get Started</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-glow"></div>
+    <div class="hero-lines"></div>
+    <div class="growth-bars" id="gbars"></div>
+  </div>
+  <div class="hero-pill">Live Worldwide Platform</div>
+  <h1 class="hero-title">
+    ILLUMINATE<br>
+    <span class="line2">YOUR BRAND</span>
+  </h1>
+  <p class="hero-sub">Book billboards. Hire elite creative talent. Launch campaigns that convert — all in one global marketplace.</p>
+  <div class="hero-ctas">
+    <a href="#billboards" class="btn-xl gold">Explore Billboards</a>
+    <a href="#freelancers" class="btn-xl outline">Hire Talent</a>
+  </div>
+  <div class="hero-metrics">
+    <div class="metric">
+      <span class="metric-num" data-target="12400" id="m1">0</span>
+      <span class="metric-label">Billboards Listed</span>
+      <div class="metric-trend">+18% this month</div>
+    </div>
+    <div class="metric">
+      <span class="metric-num" data-target="4200" id="m2">0</span>
+      <span class="metric-label">Creative Talents</span>
+      <div class="metric-trend">+24% this month</div>
+    </div>
+    <div class="metric">
+      <span class="metric-num" data-target="80" id="m3">0</span>
+      <span class="metric-label">Countries</span>
+      <div class="metric-trend">+6 this quarter</div>
+    </div>
+    <div class="metric">
+      <span class="metric-num" id="m4">5%</span>
+      <span class="metric-label">Platform Fee Only</span>
+      <div class="metric-trend">You keep 95%</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">Billboard Booking <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Creative Design <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Video Production <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Web Development <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Social Ads <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Global Reach <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Only 5% Commission <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Illuminate Your Brand <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Billboard Booking <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Creative Design <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Video Production <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Web Development <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Social Ads <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Global Reach <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Only 5% Commission <span class="ticker-sep">✦</span></span>
+    <span class="ticker-item">Illuminate Your Brand <span class="ticker-sep">✦</span></span>
+  </div>
+</div>
+
+<!-- GROWTH METRICS ANIMATION -->
+<div id="metrics-anim">
+  <p class="anim-sub reveal" style="font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;display:flex;align-items:center;justify-content:center;gap:.6rem"><span style="display:inline-block;width:20px;height:1px;background:var(--gold)"></span>What Adluma Delivers</p>
+  <h2 class="anim-title reveal">Brands that grow.<br><span style="color:var(--gold)">Numbers that prove it.</span></h2>
+  <p class="anim-sub reveal">Simple animations showing what matters — reach, sales, engagement.</p>
+  <div class="charts-row">
+    <div class="chart-card reveal">
+      <div class="chart-card-label">Billboard Reach</div>
+      <div class="chart-card-val">+340%</div>
+      <div class="chart-card-change">↑ Avg. brand visibility increase</div>
+      <div class="bar-chart">
+        <div class="bc-bar"></div><div class="bc-bar"></div><div class="bc-bar"></div>
+        <div class="bc-bar"></div><div class="bc-bar"></div><div class="bc-bar"></div>
+        <div class="bc-bar"></div><div class="bc-bar"></div><div class="bc-bar"></div>
+        <div class="bc-bar"></div><div class="bc-bar"></div><div class="bc-bar"></div>
+      </div>
+    </div>
+    <div class="chart-card reveal">
+      <div class="chart-card-label">Sales Growth</div>
+      <div class="chart-card-val">+210%</div>
+      <div class="chart-card-change">↑ Avg. revenue lift for clients</div>
+      <svg class="line-chart" viewBox="0 0 200 60" fill="none">
+        <polyline class="lc-line" points="0,55 20,48 40,42 60,36 80,28 100,22 120,18 140,12 160,8 180,4 200,2" stroke="#E8C547" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="0,55 20,48 40,42 60,36 80,28 100,22 120,18 140,12 160,8 180,4 200,2 200,60 0,60" fill="rgba(232,197,71,.06)" stroke="none"/>
+      </svg>
+    </div>
+    <div class="chart-card reveal">
+      <div class="chart-card-label">Engagement Rate</div>
+      <div class="chart-card-val">+180%</div>
+      <div class="chart-card-change">↑ Social + outdoor combined</div>
+      <div class="engage-rings">
+        <div class="e-ring">
+          <svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="fill" cx="22" cy="22" r="18" style="stroke-dashoffset:26"/></svg>
+          <div class="e-ring-val">80%</div>
+        </div>
+        <div class="e-ring">
+          <svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="fill" cx="22" cy="22" r="18" style="stroke-dashoffset:46"/></svg>
+          <div class="e-ring-val">65%</div>
+        </div>
+        <div class="e-ring">
+          <svg viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="18"/><circle class="fill" cx="22" cy="22" r="18" style="stroke-dashoffset:66"/></svg>
+          <div class="e-ring-val">50%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <span class="s-tag reveal">What We Offer</span>
+  <h2 class="s-title reveal">One platform.<br>Every ad solution.</h2>
+  <p class="s-sub reveal">From physical billboards to digital campaigns — everything your brand needs in one place.</p>
+  <div class="services-grid">
+    <div class="svc-card reveal"><div class="svc-num">01</div><div class="svc-icon-wrap">🪧</div><h3>Billboard Booking</h3><p>Browse thousands of verified billboards worldwide. Filter by city, size, traffic, and availability. Book in minutes.</p></div>
+    <div class="svc-card reveal"><div class="svc-num">02</div><div class="svc-icon-wrap">📢</div><h3>List Your Signboard</h3><p>Own a billboard? List it with photos, location, dimensions, footfall data, and pricing. Start earning from day one.</p></div>
+    <div class="svc-card reveal"><div class="svc-num">03</div><div class="svc-icon-wrap">📱</div><h3>Social Advertising</h3><p>Connect with specialists running high-converting campaigns on Instagram, Facebook, TikTok, and YouTube.</p></div>
+    <div class="svc-card reveal"><div class="svc-num">04</div><div class="svc-icon-wrap">🎨</div><h3>Creative Designers</h3><p>Hire top designers for billboard creatives, brand identity, ad banners, and full campaign visuals.</p></div>
+    <div class="svc-card reveal"><div class="svc-num">05</div><div class="svc-icon-wrap">🎬</div><h3>Video Editors</h3><p>Professional editors for social media ads, reels, commercials, and motion graphics. Fast, quality-guaranteed.</p></div>
+    <div class="svc-card reveal"><div class="svc-num">06</div><div class="svc-icon-wrap">💻</div><h3>Web Developers</h3><p>Skilled developers to build landing pages, campaign sites, e-commerce stores, and full web applications.</p></div>
+  </div>
+</section>
+
+<!-- BILLBOARDS -->
+<section id="billboards">
+  <span class="s-tag reveal">Billboard Marketplace</span>
+  <h2 class="s-title reveal">Book your space.<br>Own the street.</h2>
+  <p class="s-sub reveal">Real-time availability, verified locations, traffic data, and instant booking worldwide.</p>
+  <div class="bb-layout">
+    <div class="bb-map reveal">
+      <div class="bb-map-visual">
+        <div class="map-dots"></div>
+        <div class="map-city" style="top:28%;left:38%"><div class="map-city-dot"></div><div class="map-city-name">New York</div></div>
+        <div class="map-city" style="top:55%;left:62%"><div class="map-city-dot" style="animation-delay:.4s"></div><div class="map-city-name">Dubai</div></div>
+        <div class="map-city" style="top:35%;left:55%"><div class="map-city-dot" style="animation-delay:.8s"></div><div class="map-city-name">London</div></div>
+        <div class="map-city" style="top:42%;left:28%"><div class="map-city-dot" style="animation-delay:1.2s"></div><div class="map-city-name">Karachi</div></div>
+        <div class="map-city" style="top:65%;left:45%"><div class="map-city-dot" style="animation-delay:.2s"></div><div class="map-city-name">Istanbul</div></div>
+        <div class="map-city" style="top:22%;left:70%"><div class="map-city-dot" style="animation-delay:1s"></div><div class="map-city-name">Tokyo</div></div>
+      </div>
+      <div class="bb-map-info">
+        <h3>Times Square — New York, USA</h3>
+        <p style="font-size:.78rem;color:var(--muted2)">Premium digital billboard · 40ft × 25ft · LED Display</p>
+        <div class="bb-tags">
+          <span class="bb-tag">2.4M reach/week</span>
+          <span class="bb-tag">40×25 ft</span>
+          <span class="bb-tag">Digital LED</span>
+          <span class="bb-tag">⭐ 4.9 rating</span>
+        </div>
+      </div>
+    </div>
+    <div class="bb-list reveal">
+      <div class="bb-item"><div><h4>Karachi — Shahrah-e-Faisal</h4><p>Static · 30×15 ft · High Traffic</p></div><div style="text-align:right"><div class="bb-price">$120<span>/day</span></div><span class="bb-avail avail-yes">✓ Available</span></div></div>
+      <div class="bb-item"><div><h4>Dubai — Sheikh Zayed Road</h4><p>Digital · 50×20 ft · Premium</p></div><div style="text-align:right"><div class="bb-price">$480<span>/day</span></div><span class="bb-avail avail-yes">✓ Available</span></div></div>
+      <div class="bb-item"><div><h4>London — Piccadilly Circus</h4><p>Digital LED · 60×30 ft · Iconic</p></div><div style="text-align:right"><div class="bb-price">$950<span>/day</span></div><span class="bb-avail avail-soon">Booking Soon</span></div></div>
+      <div class="bb-item"><div><h4>Lahore — Mall Road</h4><p>Static · 25×12 ft · City Centre</p></div><div style="text-align:right"><div class="bb-price">$85<span>/day</span></div><span class="bb-avail avail-yes">✓ Available</span></div></div>
+      <div class="bb-item"><div><h4>Istanbul — Taksim Square</h4><p>Digital · 45×22 ft · Tourist Area</p></div><div style="text-align:right"><div class="bb-price">$310<span>/day</span></div><span class="bb-avail avail-yes">✓ Available</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FREELANCERS -->
+<section id="freelancers">
+  <span class="s-tag reveal">Creative Talent</span>
+  <h2 class="s-title reveal">Hire the best.<br>Launch faster.</h2>
+  <p class="s-sub reveal">Top designers, video editors, and developers ready to bring your brand to life.</p>
+  <div class="f-tabs">
+    <button class="f-tab active" onclick="switchFTab(this,'designers')">Designers</button>
+    <button class="f-tab" onclick="switchFTab(this,'editors')">Video Editors</button>
+    <button class="f-tab" onclick="switchFTab(this,'devs')">Web Developers</button>
+    <button class="f-tab" onclick="switchFTab(this,'social')">Social Ads</button>
+  </div>
+  <div class="f-grid reveal" id="fgrid">
+    <div class="f-card"><div class="f-top"><div class="f-av">AK</div><div><div class="f-name">Ahmad Khan</div><div class="f-role">Billboard & Brand Designer</div><div class="f-stars">★★★★★ 4.9 (128)</div></div></div><div class="f-skills"><span class="sk">Billboards</span><span class="sk">Branding</span><span class="sk">Print Ads</span></div><div class="f-foot"><div class="f-rate">$35<em>/hr</em></div><button class="btn-xs">View Profile</button></div></div>
+    <div class="f-card"><div class="f-top"><div class="f-av">SR</div><div><div class="f-name">Sara Raza</div><div class="f-role">Creative Ad Designer</div><div class="f-stars">★★★★★ 5.0 (94)</div></div></div><div class="f-skills"><span class="sk">Social Ads</span><span class="sk">Motion</span><span class="sk">Figma</span></div><div class="f-foot"><div class="f-rate">$45<em>/hr</em></div><button class="btn-xs">View Profile</button></div></div>
+    <div class="f-card"><div class="f-top"><div class="f-av">MJ</div><div><div class="f-name">Mike Johnson</div><div class="f-role">Visual Identity Designer</div><div class="f-stars">★★★★☆ 4.7 (76)</div></div></div><div class="f-skills"><span class="sk">Logo</span><span class="sk">OOH Ads</span><span class="sk">Illustrator</span></div><div class="f-foot"><div class="f-rate">$55<em>/hr</em></div><button class="btn-xs">View Profile</button></div></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <span class="s-tag reveal">Process</span>
+  <h2 class="s-title reveal">How Adluma works.</h2>
+  <div class="steps">
+    <div class="step reveal"><div class="step-n">01</div><div><div class="step-role">All Users</div><h3>Create Your Account</h3><p>Sign up as a Business Owner, Billboard Owner, or Service Provider. Each role gets a tailored dashboard and experience built exactly for their needs.</p></div></div>
+    <div class="step reveal"><div class="step-n">02</div><div><div class="step-role">Billboard Owners</div><h3>List Your Signboard</h3><p>Add full details — location, dimensions, photos, traffic data, real-time availability, and your pricing. Go live in minutes.</p></div></div>
+    <div class="step reveal"><div class="step-n">03</div><div><div class="step-role">Business Owners</div><h3>Browse & Book</h3><p>Search billboards by city, size, price, or footfall data. View on map. Check availability. Book and pay securely — all within minutes.</p></div></div>
+    <div class="step reveal"><div class="step-n">04</div><div><div class="step-role">Service Providers</div><h3>Build Your Profile</h3><p>Designers, video editors, and developers create rich profiles with portfolio, packages (Basic / Standard / Premium), hourly rates, and verified reviews.</p></div></div>
+    <div class="step reveal"><div class="step-n">05</div><div><div class="step-role">All Transactions</div><h3>Secure Payments — Only 5%</h3><p>Pay via Card, EasyPaisa, JazzCash, TapTap Send, or Bank Transfer. Adluma takes a flat 5% on every order. All communication stays strictly on-platform — no external contact allowed.</p></div></div>
+    <div class="step reveal"><div class="step-n">06</div><div><div class="step-role">After Delivery</div><h3>Rate, Review & Grow</h3><p>Leave reviews, build trust, and come back for more. Your brand's growth story starts here — and Adluma grows with you.</p></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <span class="s-tag reveal">Pricing</span>
+  <h2 class="s-title reveal">Simple, fair pricing.</h2>
+  <p class="s-sub reveal">No monthly fees to get started. Adluma earns only when you do.</p>
+  <div class="p-grid">
+    <div class="p-card reveal">
+      <div class="p-plan">Starter</div>
+      <div class="p-amt">Free<em></em></div>
+      <p class="p-desc">For billboard owners and freelancers just getting started on Adluma.</p>
+      <ul class="p-list">
+        <li class="on">List up to 3 billboards</li>
+        <li class="on">Basic profile & portfolio</li>
+        <li class="on">In-app messaging & calls</li>
+        <li class="on">5% commission per booking</li>
+        <li>Featured listings</li>
+        <li>Priority support</li>
+      </ul>
+      <a href="#" class="p-cta plain" onclick="openM('signup');return false">Get Started Free</a>
+    </div>
+    <div class="p-card featured reveal">
+      <div class="p-badge">Most Popular</div>
+      <div class="p-plan">Professional</div>
+      <div class="p-amt">$29<em>/month</em></div>
+      <p class="p-desc">For active advertisers and service providers who want maximum visibility.</p>
+      <ul class="p-list">
+        <li class="on">Unlimited listings</li>
+        <li class="on">Featured profile placement</li>
+        <li class="on">Advanced analytics</li>
+        <li class="on">Priority support</li>
+        <li class="on">5% commission per booking</li>
+        <li class="on">Verified badge</li>
+      </ul>
+      <a href="#" class="p-cta gold" onclick="openM('signup');return false">Start Pro</a>
+    </div>
+    <div class="p-card reveal">
+      <div class="p-plan">Enterprise</div>
+      <div class="p-amt">Custom<em></em></div>
+      <p class="p-desc">For agencies, billboard networks, and large businesses with custom needs.</p>
+      <ul class="p-list">
+        <li class="on">Everything in Pro</li>
+        <li class="on">Dedicated account manager</li>
+        <li class="on">Custom commission rates</li>
+        <li class="on">White-label options</li>
+        <li class="on">API access</li>
+        <li class="on">Team accounts</li>
+      </ul>
+      <a href="#" class="p-cta plain">Contact Sales</a>
+    </div>
+  </div>
+  <div class="commission-strip reveal">Adluma charges a flat <strong>5% commission</strong> on every completed booking or service — including billboards, design, video editing, and web development. You keep 95% of every transaction. No surprises.</div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testi">
+  <span class="s-tag reveal">Testimonials</span>
+  <h2 class="s-title reveal">Trusted by brands worldwide.</h2>
+  <div class="t-grid">
+    <div class="t-card reveal"><div class="t-stars">★★★★★</div><p class="t-text">Adluma completely changed how we handle outdoor advertising. We booked billboards in 3 cities within an hour. Incredible platform.</p><div class="t-author"><div class="t-av">ZA</div><div><div class="t-name">Zara Ahmed</div><div class="t-role2">Marketing Director, PakBrands</div></div></div></div>
+    <div class="t-card reveal"><div class="t-stars">★★★★★</div><p class="t-text">As a billboard owner, listing my 12 signboards was effortless. I'm now fully booked 3 months in advance. Best decision this year.</p><div class="t-author"><div class="t-av">KM</div><div><div class="t-name">Khalid Mehmood</div><div class="t-role2">Billboard Owner, Lahore</div></div></div></div>
+    <div class="t-card reveal"><div class="t-stars">★★★★★</div><p class="t-text">I found my best clients through Adluma. The in-app communication is professional and the 5% fee is completely fair. Highly recommend.</p><div class="t-author"><div class="t-av">NF</div><div><div class="t-name">Nadia Farooq</div><div class="t-role2">Graphic Designer, Karachi</div></div></div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <span class="s-tag reveal">About Adluma</span>
+  <h2 class="s-title reveal">Built to illuminate<br>every brand.</h2>
+  <div class="a-grid">
+    <div class="a-text reveal">
+      <p>Adluma was built on a simple belief: advertising should be accessible, transparent, and powerful for everyone — from a small business in Peshawar to a global brand in New York.</p>
+      <p>We created a single platform where billboard owners, creative professionals, and businesses come together without middlemen, hidden fees, or friction.</p>
+      <p>With AI-powered moderation, real-time booking, and a global network of verified talent, Adluma is the future of advertising — available today.</p>
+      <div class="a-vals">
+        <div class="a-val"><h4>Transparent</h4><p>Flat 5% fee. No hidden costs. What you see is what you pay.</p></div>
+        <div class="a-val"><h4>Trusted</h4><p>Verified profiles, secure payments, AI moderation.</p></div>
+        <div class="a-val"><h4>Global</h4><p>Any city. Any billboard. Any talent. Worldwide.</p></div>
+        <div class="a-val"><h4>Fast</h4><p>Book a billboard in minutes. Hire a designer in hours.</p></div>
+      </div>
+    </div>
+    <div class="a-stat-grid reveal">
+      <div class="a-stat a-stat-big"><span class="a-stat-num">80+</span><p>Countries with active listings and service providers</p></div>
+      <div class="a-stat"><span class="a-stat-num">12K</span><p>Billboards listed globally</p></div>
+      <div class="a-stat"><span class="a-stat-num">4K+</span><p>Verified creative talents</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <h2 class="cta-title reveal">Ready to<br><span>illuminate</span><br>your brand?</h2>
+  <div class="cta-btns reveal">
+    <a href="#" class="btn-xl gold" onclick="openM('signup');return false">Start For Free</a>
+    <a href="#billboards" class="btn-xl outline">Browse Billboards</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="f-brand-logo">
+      <div class="logo-icon" style="width:28px;height:28px"><svg viewBox="0 0 34 34" fill="none"><rect x="1" y="1" width="32" height="32" rx="8" stroke="#E8C547" stroke-width="1.2" fill="none"/><path d="M17 7 L10 24 H13.5 L17 15 L20.5 24 H24 Z" fill="#E8C547"/><path d="M13 20 H21" stroke="#060608" stroke-width="2"/><circle cx="17" cy="7" r="2" fill="#E8C547" opacity=".5"/></svg></div>
+      <div class="logo-text">AD<em>LUMA</em></div>
+    </div>
+    <p class="f-brand-desc">The global marketplace for billboard advertising, creative talent, and digital ad services.</p>
+    <div class="f-social">
+      <a href="#" class="f-soc">in</a>
+      <a href="#" class="f-soc">ig</a>
+      <a href="#" class="f-soc">fb</a>
+      <a href="#" class="f-soc">x</a>
+    </div>
+  </div>
+  <div class="f-col"><h4>Platform</h4><ul><li><a href="#">Book a Billboard</a></li><li><a href="#">List a Billboard</a></li><li><a href="#">Hire Designers</a></li><li><a href="#">Video Editors</a></li><li><a href="#">Web Developers</a></li><li><a href="#">Social Ads</a></li></ul></div>
+  <div class="f-col"><h4>Company</h4><ul><li><a href="#">About Us</a></li><li><a href="#">How It Works</a></li><li><a href="#">Pricing</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Contact</a></li></ul></div>
+  <div class="f-col"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Cookie Policy</a></li><li><a href="#">Refund Policy</a></li></ul></div>
+</footer>
+<div class="f-bottom">
+  <p>© 2025 <span>Adluma</span>. All rights reserved. Illuminate Your Brand.</p>
+  <p>Built for advertisers <span>✦</span> worldwide</p>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal-box">
+    <button class="modal-x" onclick="closeM()">✕</button>
+    <div class="modal-logo">AD<em>LUMA</em></div>
+    <div class="modal-desc" id="mdesc">Create your account and start illuminating your brand.</div>
+    <div class="m-tabs">
+      <button class="m-tab active" onclick="mTab(this,'signup')">Sign Up</button>
+      <button class="m-tab" onclick="mTab(this,'login')">Log In</button>
+    </div>
+    <div id="msignup">
+      <p style="font-size:.76rem;color:var(--muted2);margin-bottom:.8rem;font-weight:500">Choose your account type:</p>
+      <div class="role-grid">
+        <button class="r-btn sel" onclick="selRole(this)">🏢 Business Owner</button>
+        <button class="r-btn" onclick="selRole(this)">🪧 Billboard Owner</button>
+        <button class="r-btn" onclick="selRole(this)">🎨 Designer</button>
+        <button class="r-btn" onclick="selRole(this)">🎬 Video Editor</button>
+        <button class="r-btn" onclick="selRole(this)">💻 Web Developer</button>
+        <button class="r-btn" onclick="selRole(this)">📱 Social Ads Expert</button>
+      </div>
+      <div class="f-grp"><label>Full Name</label><input type="text" placeholder="Your full name"></div>
+      <div class="f-grp"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      <div class="f-grp"><label>Password</label><input type="password" placeholder="Create a password"></div>
+      <button class="m-submit">Create Account</button>
+    </div>
+    <div id="mlogin" style="display:none">
+      <div class="f-grp"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+      <div class="f-grp"><label>Password</label><input type="password" placeholder="Your password"></div>
+      <button class="m-submit">Log In</button>
+      <p style="text-align:center;margin-top:.9rem;font-size:.76rem;color:var(--muted2)">Forgot password? <a href="#" style="color:var(--gold)">Reset</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+document.addEventListener('mousemove',e=>{
+  cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+  setTimeout(()=>{curR.style.left=e.clientX+'px';curR.style.top=e.clientY+'px'},70);
+});
+document.querySelectorAll('a,button,.svc-card,.bb-item,.f-card,.metric').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='16px';cur.style.height='16px';curR.style.width='44px';curR.style.height='44px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';curR.style.width='32px';curR.style.height='32px'});
+});
+
+// GROWTH BARS HERO
+const gbars=document.getElementById('gbars');
+const heights=[15,22,18,30,28,35,32,42,38,50,48,55,52,62,58,70,65,78,72,85,80,90,88,95,92,98,96,100];
+heights.forEach((h,i)=>{
+  const b=document.createElement('div');
+  b.className='g-bar';
+  b.style.cssText=`--h:${h}%;animation-delay:${i*0.06}s`;
+  gbars.appendChild(b);
+});
+
+// COUNT UP
+function countUp(el,target,duration=2000){
+  const start=performance.now();
+  const update=now=>{
+    const p=Math.min((now-start)/duration,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(ease*target).toLocaleString();
+    if(p<1)requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+let counted=false;
+const metricsObs=new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting&&!counted){
+    counted=true;
+    countUp(document.getElementById('m1'),12400);
+    countUp(document.getElementById('m2'),4200);
+    countUp(document.getElementById('m3'),80,1200);
+  }
+},{threshold:.3});
+const mSection=document.querySelector('.hero-metrics');
+if(mSection)metricsObs.observe(mSection);
+
+// SCROLL REVEAL
+const revEls=document.querySelectorAll('.reveal');
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+},{threshold:.08});
+revEls.forEach(r=>revObs.observe(r));
+
+// MODAL
+function openM(tab){document.getElementById('modal').classList.add('open');mTab(document.querySelector('.m-tab'),tab)}
+function closeM(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeM()});
+function mTab(el,tab){
+  document.querySelectorAll('.m-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('msignup').style.display=tab==='signup'?'block':'none';
+  document.getElementById('mlogin').style.display=tab==='login'?'block':'none';
+  document.getElementById('mdesc').textContent=tab==='signup'?'Create your account and start illuminating your brand.':'Welcome back. Log in to your Adluma account.';
+}
+function selRole(el){document.querySelectorAll('.r-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel')}
+
+// FREELANCER TABS
+const fData={
+  designers:[
+    {i:'AK',n:'Ahmad Khan',r:'Billboard & Brand Designer',s:'★★★★★ 4.9',sk:['Billboards','Branding','Print Ads'],rate:'$35'},
+    {i:'SR',n:'Sara Raza',r:'Creative Ad Designer',s:'★★★★★ 5.0',sk:['Social Ads','Motion','Figma'],rate:'$45'},
+    {i:'MJ',n:'Mike Johnson',r:'Visual Identity Designer',s:'★★★★☆ 4.7',sk:['Logo Design','OOH Ads','Illustrator'],rate:'$55'},
+  ],
+  editors:[
+    {i:'RK',n:'Raza Khan',r:'Social Media Video Editor',s:'★★★★★ 4.9',sk:['Reels','TikTok Ads','Premiere'],rate:'$40'},
+    {i:'LM',n:'Layla Morris',r:'Commercial Video Editor',s:'★★★★★ 5.0',sk:['After Effects','Color Grading','Motion'],rate:'$60'},
+    {i:'HA',n:'Hassan Ali',r:'Ad Film Editor',s:'★★★★☆ 4.8',sk:['DaVinci','VFX','Animation'],rate:'$50'},
+  ],
+  devs:[
+    {i:'ZH',n:'Zaid Hussain',r:'Full Stack Developer',s:'★★★★★ 4.9',sk:['React','Node.js','Landing Pages'],rate:'$65'},
+    {i:'AS',n:'Aisha Siddiqui',r:'Frontend Developer',s:'★★★★★ 5.0',sk:['Next.js','Tailwind','UI Dev'],rate:'$55'},
+    {i:'TN',n:'Tom Nash',r:'E-commerce Developer',s:'★★★★☆ 4.7',sk:['Shopify','WooCommerce','PHP'],rate:'$70'},
+  ],
+  social:[
+    {i:'FM',n:'Fatima Malik',r:'Meta Ads Specialist',s:'★★★★★ 4.9',sk:['Facebook Ads','Instagram','ROAS'],rate:'$50'},
+    {i:'OA',n:'Omar Ansari',r:'TikTok Ad Expert',s:'★★★★★ 5.0',sk:['TikTok Ads','UGC','Viral Strategy'],rate:'$45'},
+    {i:'CL',n:'Clara Lee',r:'Google & Social Ads',s:'★★★★☆ 4.8',sk:['Google Ads','YouTube','Analytics'],rate:'$60'},
+  ]
+};
+function switchFTab(el,type){
+  document.querySelectorAll('.f-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  const g=document.getElementById('fgrid');
+  g.innerHTML=fData[type].map(f=>`<div class="f-card"><div class="f-top"><div class="f-av">${f.i}</div><div><div class="f-name">${f.n}</div><div class="f-role">${f.r}</div><div class="f-stars">${f.s}</div></div></div><div class="f-skills">${f.sk.map(s=>`<span class="sk">${s}</span>`).join('')}</div><div class="f-foot"><div class="f-rate">${f.rate}<em>/hr</em></div><button class="btn-xs">View Profile</button></div></div>`).join('');
+}
+</script>
+
+<!-- PUBLISH GUIDE (hidden comment for reference) -->
+<!-- 
+HOW TO PUBLISH ADLUMA:
+1. Download this HTML file
+2. Go to netlify.com → Sign up free
+3. Drag & drop this file onto Netlify
+4. Your site is live at yourname.netlify.app instantly!
+5. To add custom domain: buy adluma.com on namecheap.com then connect in Netlify settings
+-->
+</body>
+</html>
